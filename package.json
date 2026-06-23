@@ -1,0 +1,12 @@
+{
+  "name": "shiksha-ai-monorepo",
+  "version": "1.0.0",
+  "description": "Monorepo containing backend and student-ui frontend",
+  "private": true,
+  "scripts": {
+    "install:all": "npm install --prefix backend && npm install --prefix student-ui --legacy-peer-deps",
+    "start": "node start.js"
+  },
+  "author": "",
+  "license": "ISC"
+}

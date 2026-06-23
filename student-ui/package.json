@@ -1,0 +1,51 @@
+{
+  "name": "shiksha-ai-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@gsap/react": "^2.1.2",
+    "@react-oauth/google": "^0.13.4",
+    "@tanstack/react-query": "^4.35.0",
+    "axios": "^1.5.0",
+    "clsx": "^2.1.1",
+    "gsap": "^3.15.0",
+    "jspdf": "^3.0.4",
+    "jspdf-autotable": "^5.0.2",
+    "lucide-react": "^0.263.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.15.0",
+    "react-scripts": "5.0.1",
+    "recharts": "^2.8.0",
+    "tailwind-merge": "^3.6.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/node": "^26.0.0",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "typescript": "^6.0.3"
+  }
+}
