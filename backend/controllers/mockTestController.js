@@ -206,6 +206,12 @@ exports.generateMockTest = async (req, res) => {
 
     // 3. FINAL SAFETY CHECK
     if (!questions || questions.length === 0) {
+      console.warn(`[WARN] Cache miss and AI failed for Subject=${subject}. Injecting fallback questions...`);
+      const { getFallbackQuestions } = require('../utils/fallbackQuestions');
+      questions = await getFallbackQuestions(subject, classLevel, questionCount);
+    }
+
+    if (!questions || questions.length === 0) {
       console.error(`[CRITICAL] Generation failed for Subject=${subject}, Topic=${topic}. Questions array is empty.`);
       return res.status(503).json({
         success: false,
