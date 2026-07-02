@@ -37,6 +37,7 @@ const TestInterface = ({ user }) => {
     const [selectedImage, setSelectedImage] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
     const [isAnalyzing, setIsAnalyzing] = useState(false); // New state
+    const [isSubmitHovered, setIsSubmitHovered] = useState(false);
 
     const fetchTestData = useCallback(async () => {
         try {
@@ -225,13 +226,12 @@ const TestInterface = ({ user }) => {
     if (loading && !currentQuestion && !isCompleted) {
         return (
             <div 
-                className="flex flex-col items-center justify-center min-h-screen gap-4"
+                className="flex flex-col items-center justify-center min-h-screen"
                 style={{ backgroundColor: T.cream }}
             >
-                <Loader2 className="animate-spin" size={48} style={{ color: T.terracotta }} />
-                <p style={{ color: T.muted, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', fontSize: '0.7rem', fontFamily: T.fontMono }}>
+                <div className="animate-pulse text-[#1a3300] font-mono text-[10px] uppercase tracking-widest">
                     Initializing Neural Link...
-                </p>
+                </div>
             </div>
         );
     }
@@ -369,13 +369,12 @@ const TestInterface = ({ user }) => {
     if (!currentQuestion || !currentQuestion.question) {
         return (
             <div 
-                className="flex flex-col items-center justify-center min-h-screen gap-4"
+                className="flex flex-col items-center justify-center min-h-screen"
                 style={{ backgroundColor: T.cream }}
             >
-                <Loader2 className="animate-spin" size={48} style={{ color: T.terracotta }} />
-                <p style={{ color: T.muted, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', fontSize: '0.7rem', fontFamily: T.fontMono }}>
+                <div className="animate-pulse text-[#1a3300] font-mono text-[10px] uppercase tracking-widest">
                     Syncing Questions...
-                </p>
+                </div>
             </div>
         );
     }
@@ -444,15 +443,32 @@ const TestInterface = ({ user }) => {
 
             {/* Main Question Area */}
             <main className="flex-1 max-w-4xl w-full mx-auto mt-24 mb-12 animate-in slide-in-from-bottom duration-500">
-                <div 
-                    className="p-10 relative overflow-hidden group"
-                    style={{
-                        backgroundColor: T.white,
-                        border: T.border,
-                        boxShadow: T.shadowHard,
-                        borderRadius: '24px'
-                    }}
-                >
+                <div className="relative w-full" style={{ padding: '6px' }}>
+                    {/* The absolute timer background block behind the card */}
+                    <div 
+                        className="absolute transition-all duration-1000"
+                        style={{
+                            top: 0,
+                            left: 0,
+                            bottom: 0,
+                            width: `${testData?.timing?.timeLimit ? (timeLeft / testData.timing.timeLimit) * 100 : 100}%`,
+                            backgroundColor: T.mint, // mint green accent from theme
+                            border: T.border,
+                            borderRadius: '28px',
+                            zIndex: 0
+                        }}
+                    />
+
+                    <div 
+                        className="p-10 relative overflow-hidden group"
+                        style={{
+                            backgroundColor: T.white,
+                            border: T.border,
+                            boxShadow: T.shadowHard,
+                            borderRadius: '24px',
+                            zIndex: 1
+                        }}
+                    >
                     <div className="absolute top-0 left-0 w-full h-1" style={{ backgroundColor: 'rgba(26,51,0,0.06)' }}>
                         <div
                             className="h-full transition-all duration-700"
@@ -692,12 +708,22 @@ const TestInterface = ({ user }) => {
                             <button
                                 onClick={handleSubmitAnswer}
                                 disabled={isAnalyzing || (question.type === 'mcq' ? !selectedOption : !previewUrl)}
-                                className="px-10 py-3.5 rounded-xl font-black text-xs uppercase tracking-wider transition-all flex items-center gap-2 active:scale-[0.95] disabled:opacity-50 disabled:cursor-not-allowed"
+                                onMouseEnter={() => setIsSubmitHovered(true)}
+                                onMouseLeave={() => setIsSubmitHovered(false)}
+                                className="px-10 py-3.5 rounded-xl font-black text-xs uppercase tracking-wider transition-all duration-200 flex items-center gap-2 active:scale-[0.95] disabled:opacity-50 disabled:cursor-not-allowed"
                                 style={{
-                                    backgroundColor: (isAnalyzing || (question.type === 'mcq' ? !selectedOption : !previewUrl)) ? T.cream : T.terracotta,
-                                    color: (isAnalyzing || (question.type === 'mcq' ? !selectedOption : !previewUrl)) ? T.muted : T.white,
-                                    border: T.border,
-                                    boxShadow: (isAnalyzing || (question.type === 'mcq' ? !selectedOption : !previewUrl)) ? 'none' : '3px 3px 0px #1a3300',
+                                    backgroundColor: (isAnalyzing || (question.type === 'mcq' ? !selectedOption : !previewUrl)) 
+                                        ? T.cream 
+                                        : (isSubmitHovered ? T.yellow : T.terracotta),
+                                    color: (isAnalyzing || (question.type === 'mcq' ? !selectedOption : !previewUrl)) 
+                                        ? T.muted 
+                                        : (isSubmitHovered ? '#000000' : T.white),
+                                    border: (isAnalyzing || (question.type === 'mcq' ? !selectedOption : !previewUrl))
+                                        ? '2px solid rgba(26,51,0,0.15)'
+                                        : (isSubmitHovered ? '2px solid #000000' : T.border),
+                                    boxShadow: (isAnalyzing || (question.type === 'mcq' ? !selectedOption : !previewUrl)) 
+                                        ? 'none' 
+                                        : (isSubmitHovered ? '3px 3px 0px #000000' : '3px 3px 0px #1a3300'),
                                     cursor: 'pointer'
                                 }}
                             >
@@ -716,7 +742,8 @@ const TestInterface = ({ user }) => {
                         </div>
                     )}
                 </div>
-            </main>
+            </div>
+        </main>
         </div>
     );
 };

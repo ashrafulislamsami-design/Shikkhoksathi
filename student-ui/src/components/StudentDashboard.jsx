@@ -372,7 +372,7 @@ const StudentDashboard = ({ user: propUser, onUserUpdate }) => {
 
     /* ─── TAB TITLE CONFIG ─── */
     const tabMeta = {
-        overview: { title: `Welcome back, ${user?.name?.split(' ')[0]}!`, sub: 'Here is your AI-powered performance analysis.' },
+        overview: { title: `Welcome back, ${user?.name?.split(' ').pop()}!`, sub: 'Here is your AI-powered performance analysis.' },
         career: { title: 'Career Roadmaps', sub: 'Personalized pathways based on your performance and interests.' },
         tests: { title: 'Mock Tests', sub: 'Practice with AI-adaptive mock tests aligned to NCTB syllabus.' },
         game: { title: 'Hall of Champions', sub: 'Compete, earn, and unlock rewards through gamified learning.' },
