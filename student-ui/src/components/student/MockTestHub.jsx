@@ -199,10 +199,14 @@ const MockTestHub = ({ user }) => {
 
     if (loading) {
         return (
-            <div className="flex items-center justify-center min-h-screen" style={{ backgroundColor: T.cream }}>
-                <div className="animate-pulse text-stone-500 font-mono text-[10px] uppercase tracking-widest">
+            <div 
+                className="flex flex-col items-center justify-center min-h-screen gap-4"
+                style={{ backgroundColor: T.cream }}
+            >
+                <Loader2 className="animate-spin" size={48} style={{ color: T.terracotta }} />
+                <p style={{ color: T.muted, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', fontSize: '0.7rem', fontFamily: T.fontMono }}>
                     Synchronizing AI Node...
-                </div>
+                </p>
             </div>
         );
     }

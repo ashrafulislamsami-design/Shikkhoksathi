@@ -134,8 +134,9 @@ const HallOfChampions = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-        <div className="animate-pulse text-purple-400 font-mono text-[10px] uppercase tracking-widest">
-          Loading Champions...
+        <div className="text-center">
+          <Loader className="animate-spin h-12 w-12 text-purple-500 mx-auto mb-4" />
+          <p className="text-slate-400 font-semibold">Loading champions...</p>
         </div>
       </div>
     );
