@@ -91,7 +91,7 @@ const userSchema = new mongoose.Schema({
   profile: {
     class: {
       type: String,
-      enum: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'HSC1', 'HSC2']
+      enum: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', 'HSC1', 'HSC2']
     },
     board: {
       type: String,

@@ -200,6 +200,25 @@ app.get('/', (req, res) => {
 // Error Handling
 app.use((err, req, res, next) => {
   console.error(err.stack);
+
+  if (err.name === 'ValidationError') {
+    const errors = Object.keys(err.errors).map(key => {
+      const errorDetail = err.errors[key];
+      if (key === 'password' || key.endsWith('.password')) {
+        return 'Password must be at least 6 characters long.';
+      }
+      if (key === 'studentClass' || key === 'profile.class' || key.endsWith('.class')) {
+        return 'Invalid class level. Please choose a class between 1 and 12 (or HSC1/HSC2).';
+      }
+      return errorDetail.message;
+    });
+
+    return res.status(400).json({
+      success: false,
+      message: errors.join(' ')
+    });
+  }
+
   res.status(500).json({
     success: false,
     message: 'Server Error',

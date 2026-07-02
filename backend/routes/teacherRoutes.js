@@ -15,6 +15,15 @@ router.post('/register', async (req, res) => {
   try {
     const { name, email, password, school, district, upazila, division, subjects, classes, designation, otp } = req.body;
 
+    // Block temporary/disposable emails
+    const { isDisposableEmail } = require('../utils/emailValidator');
+    if (isDisposableEmail(email)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Temporary or disposable emails are not allowed.'
+      });
+    }
+
     // Validate OTP
     if (!otp) {
       return res.status(400).json({

@@ -35,6 +35,15 @@ exports.register = async (req, res) => {
   try {
     const { name, email, password, profile, studentClass, stream, otp } = req.body;
 
+    // Block temporary/disposable emails
+    const { isDisposableEmail } = require('../utils/emailValidator');
+    if (isDisposableEmail(email)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Temporary or disposable emails are not allowed.'
+      });
+    }
+
     // Validate OTP
     if (!otp) {
       return res.status(400).json({
@@ -164,6 +173,15 @@ exports.sendOtp = async (req, res) => {
       return res.status(400).json({
         success: false,
         message: 'Email address is required'
+      });
+    }
+
+    // Block temporary/disposable emails
+    const { isDisposableEmail } = require('../utils/emailValidator');
+    if (isDisposableEmail(email)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Temporary or disposable emails are not allowed.'
       });
     }
 
