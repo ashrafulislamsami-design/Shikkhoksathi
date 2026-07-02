@@ -109,48 +109,88 @@ const MockTestConfigModal = ({ isOpen, onClose, onStart, preselectedSubject, use
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
             {/* Backdrop */}
             <div
-                className="absolute inset-0 bg-black/60 backdrop-blur-md"
+                className="absolute inset-0 bg-black/40 backdrop-blur-sm"
                 onClick={onClose}
             />
 
             {/* Modal Card */}
-            <div className="relative w-full max-w-md bg-slate-900/95 backdrop-blur-xl rounded-3xl border border-white/10 shadow-2xl shadow-blue-900/20 p-8 animate-in fade-in zoom-in duration-300 max-h-[90vh] overflow-y-auto">
+            <div 
+                className="relative w-full max-w-md p-8 animate-in fade-in zoom-in duration-300 max-h-[90vh] overflow-y-auto"
+                style={{
+                    backgroundColor: '#fcfaf5',
+                    border: '2px solid #1a3300',
+                    boxShadow: '8px 8px 0px #1a3300',
+                    borderRadius: '16px',
+                    color: '#1a3300',
+                    fontFamily: "'Inter', sans-serif"
+                }}
+            >
                 {/* Close Button */}
                 <button
                     onClick={onClose}
-                    className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 transition-colors"
+                    className="absolute top-4 right-4 w-9 h-9 flex items-center justify-center transition-all hover:translate-x-[-1px] hover:translate-y-[-1px]"
+                    style={{
+                        backgroundColor: '#fcfaf5',
+                        border: '2px solid #1a3300',
+                        boxShadow: '2px 2px 0px #1a3300',
+                        borderRadius: '8px',
+                        color: '#1a3300',
+                        cursor: 'pointer'
+                    }}
                 >
-                    <X size={20} className="text-white/60" />
+                    <X size={18} />
                 </button>
 
                 {/* Header */}
-                <div className="flex items-center gap-3 mb-6">
-                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-                        <Settings size={24} className="text-white" />
+                <div className="flex items-center gap-3 mb-6 pb-4 border-b-2 border-[#1a3300]/10">
+                    <div 
+                        className="w-12 h-12 flex items-center justify-center"
+                        style={{
+                            backgroundColor: '#ffe95c',
+                            border: '2px solid #1a3300',
+                            borderRadius: '12px',
+                            boxShadow: '2px 2px 0px #1a3300'
+                        }}
+                    >
+                        <Settings size={22} className="text-[#1a3300]" />
                     </div>
                     <div>
-                        <h2 className="text-2xl font-black text-white">Configure Test</h2>
-                        <p className="text-xs text-white/40 uppercase tracking-wider">Customize Your Assessment</p>
+                        <h2 className="text-xl font-extrabold text-[#1a3300]" style={{ fontFamily: "'Bricolage Grotesque', sans-serif" }}>Configure Test</h2>
+                        <p className="text-[10px] text-[#cb5521] font-bold uppercase tracking-wider font-mono">Customize Your Assessment</p>
                     </div>
                 </div>
 
                 {/* Cross-Class Difficulty Warning */}
                 {isDifficultyWarning && (
-                    <div className="mb-4 p-4 bg-amber-500/10 border border-amber-500/30 rounded-xl flex items-start gap-3">
-                        <AlertTriangle size={20} className="text-amber-400 flex-shrink-0 mt-0.5" />
+                    <div 
+                        className="mb-4 p-4 rounded-xl flex items-start gap-3"
+                        style={{
+                            backgroundColor: '#fffbeb',
+                            border: '2px solid #1a3300',
+                            boxShadow: '3px 3px 0px #1a3300'
+                        }}
+                    >
+                        <AlertTriangle size={20} className="text-amber-600 flex-shrink-0 mt-0.5" />
                         <div>
-                            <p className="text-xs font-bold text-amber-400 uppercase tracking-wider">High Difficulty Mode Active</p>
-                            <p className="text-xs text-amber-300/80 mt-1">You're attempting Class {config.targetClass} questions. Expect Expert/Olympiad level difficulty!</p>
+                            <p className="text-xs font-black text-amber-800 uppercase tracking-wider font-mono">High Difficulty Mode Active</p>
+                            <p className="text-xs text-amber-950 mt-1">You're attempting Class {config.targetClass} questions. Expect Expert/Olympiad level difficulty!</p>
                         </div>
                     </div>
                 )}
 
                 {isRemedial && (
-                    <div className="mb-4 p-4 bg-blue-500/10 border border-blue-500/30 rounded-xl flex items-start gap-3">
-                        <TrendingUp size={20} className="text-blue-400 flex-shrink-0 mt-0.5" />
+                    <div 
+                        className="mb-4 p-4 rounded-xl flex items-start gap-3"
+                        style={{
+                            backgroundColor: '#eff6ff',
+                            border: '2px solid #1a3300',
+                            boxShadow: '3px 3px 0px #1a3300'
+                        }}
+                    >
+                        <TrendingUp size={20} className="text-blue-600 flex-shrink-0 mt-0.5" />
                         <div>
-                            <p className="text-xs font-bold text-blue-400 uppercase tracking-wider">Remedial Mode Active</p>
-                            <p className="text-xs text-blue-300/80 mt-1">Reviewing Class {config.targetClass} fundamentals. Great for strengthening basics!</p>
+                            <p className="text-xs font-black text-blue-800 uppercase tracking-wider font-mono">Remedial Mode Active</p>
+                            <p className="text-xs text-blue-950 mt-1">Reviewing Class {config.targetClass} fundamentals. Great for strengthening basics!</p>
                         </div>
                     </div>
                 )}
@@ -159,58 +199,84 @@ const MockTestConfigModal = ({ isOpen, onClose, onStart, preselectedSubject, use
                 <div className="space-y-4">
                     {/* Test Type */}
                     <div>
-                        <label className="block text-xs font-bold text-white/60 uppercase tracking-wider mb-2">
+                        <label className="block text-[11px] font-extrabold text-[#1a3300] uppercase tracking-wider mb-2 font-mono">
                             Test Type
                         </label>
                         <select
                             value={config.testType}
                             onChange={(e) => setConfig({ ...config, testType: e.target.value })}
-                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                            className="w-full px-4 py-3 text-sm focus:outline-none transition-all"
+                            style={{
+                                backgroundColor: '#ffffff',
+                                border: '2px solid #1a3300',
+                                borderRadius: '10px',
+                                boxShadow: '2px 2px 0px rgba(26,51,0,0.15)',
+                                color: '#1a3300',
+                                fontWeight: 700
+                            }}
                         >
-                            <option value="topic_specific" className="bg-slate-900">Topic Specific</option>
-                            <option value="full_syllabus" className="bg-slate-900">Full Syllabus</option>
+                            <option value="topic_specific">Topic Specific</option>
+                            <option value="full_syllabus">Full Syllabus</option>
                         </select>
                     </div>
 
-                    {/* Question Type - NEW */}
+                    {/* Question Type */}
                     <div>
-                        <label className="block text-xs font-bold text-white/60 uppercase tracking-wider mb-2">
+                        <label className="block text-[11px] font-extrabold text-[#1a3300] uppercase tracking-wider mb-2 font-mono">
                             Question Type
                         </label>
                         <div className="grid grid-cols-2 gap-3">
                             <button
                                 onClick={() => setConfig({ ...config, questionType: 'mcq', questionCount: 10 })}
-                                className={`px-4 py-3 rounded-xl font-bold transition-all ${config.questionType === 'mcq'
-                                    ? 'bg-gradient-to-br from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-900/30'
-                                    : 'bg-white/5 text-white/60 hover:bg-white/10'
-                                    }`}
+                                className="px-4 py-3 rounded-xl font-bold transition-all text-xs"
+                                style={{
+                                    backgroundColor: config.questionType === 'mcq' ? '#ffe95c' : '#ffffff',
+                                    border: '2px solid #1a3300',
+                                    boxShadow: config.questionType === 'mcq' ? '3px 3px 0px #1a3300' : '2px 2px 0px rgba(26,51,0,0.15)',
+                                    color: '#1a3300',
+                                    transform: config.questionType === 'mcq' ? 'translate(-2px, -2px)' : 'none',
+                                    cursor: 'pointer'
+                                }}
                             >
                                 MCQ
                             </button>
                             <button
                                 onClick={() => setConfig({ ...config, questionType: 'cq', questionCount: 5 })}
-                                className={`px-4 py-3 rounded-xl font-bold transition-all ${config.questionType === 'cq'
-                                    ? 'bg-gradient-to-br from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-900/30'
-                                    : 'bg-white/5 text-white/60 hover:bg-white/10'
-                                    }`}
+                                className="px-4 py-3 rounded-xl font-bold transition-all text-xs"
+                                style={{
+                                    backgroundColor: config.questionType === 'cq' ? '#ffe95c' : '#ffffff',
+                                    border: '2px solid #1a3300',
+                                    boxShadow: config.questionType === 'cq' ? '3px 3px 0px #1a3300' : '2px 2px 0px rgba(26,51,0,0.15)',
+                                    color: '#1a3300',
+                                    transform: config.questionType === 'cq' ? 'translate(-2px, -2px)' : 'none',
+                                    cursor: 'pointer'
+                                }}
                             >
                                 CQ (Creative)
                             </button>
                         </div>
                     </div>
 
-                    {/* Chapter Selection - NEW */}
+                    {/* Chapter Selection */}
                     <div>
-                        <label className="block text-xs font-bold text-white/60 uppercase tracking-wider mb-2">
+                        <label className="block text-[11px] font-extrabold text-[#1a3300] uppercase tracking-wider mb-2 font-mono">
                             Select Chapter
                         </label>
                         <select
                             value={config.chapter}
                             onChange={(e) => setConfig({ ...config, chapter: e.target.value })}
-                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                            className="w-full px-4 py-3 text-sm focus:outline-none transition-all"
+                            style={{
+                                backgroundColor: '#ffffff',
+                                border: '2px solid #1a3300',
+                                borderRadius: '10px',
+                                boxShadow: '2px 2px 0px rgba(26,51,0,0.15)',
+                                color: '#1a3300',
+                                fontWeight: 700
+                            }}
                         >
                             {[...Array(10)].map((_, i) => (
-                                <option key={i + 1} value={i + 1} className="bg-slate-900">
+                                <option key={i + 1} value={i + 1}>
                                     Chapter {i + 1}
                                 </option>
                             ))}
@@ -219,16 +285,24 @@ const MockTestConfigModal = ({ isOpen, onClose, onStart, preselectedSubject, use
 
                     {/* Target Class Level */}
                     <div>
-                        <label className="block text-xs font-bold text-white/60 uppercase tracking-wider mb-2">
+                        <label className="block text-[11px] font-extrabold text-[#1a3300] uppercase tracking-wider mb-2 font-mono">
                             Target Class Level
                         </label>
                         <select
                             value={config.targetClass}
                             onChange={(e) => setConfig({ ...config, targetClass: e.target.value, stream: null })}
-                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                            className="w-full px-4 py-3 text-sm focus:outline-none transition-all"
+                            style={{
+                                backgroundColor: '#ffffff',
+                                border: '2px solid #1a3300',
+                                borderRadius: '10px',
+                                boxShadow: '2px 2px 0px rgba(26,51,0,0.15)',
+                                color: '#1a3300',
+                                fontWeight: 700
+                            }}
                         >
                             {[...Array(12)].map((_, i) => (
-                                <option key={i + 1} value={i + 1} className="bg-slate-900">
+                                <option key={i + 1} value={i + 1}>
                                     Class {i + 1} {i + 1 === parseInt(config.userClass) ? '(Your Class)' : ''}
                                 </option>
                             ))}
@@ -238,17 +312,25 @@ const MockTestConfigModal = ({ isOpen, onClose, onStart, preselectedSubject, use
                     {/* Stream Selection (for Classes 9-12) */}
                     {requiresStream && streams.length > 0 && (
                         <div>
-                            <label className="block text-xs font-bold text-white/60 uppercase tracking-wider mb-2">
+                            <label className="block text-[11px] font-extrabold text-[#1a3300] uppercase tracking-wider mb-2 font-mono">
                                 Stream
                             </label>
                             <select
                                 value={config.stream || ''}
                                 onChange={(e) => setConfig({ ...config, stream: e.target.value })}
-                                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                                className="w-full px-4 py-3 text-sm focus:outline-none transition-all"
+                                style={{
+                                    backgroundColor: '#ffffff',
+                                    border: '2px solid #1a3300',
+                                    borderRadius: '10px',
+                                    boxShadow: '2px 2px 0px rgba(26,51,0,0.15)',
+                                    color: '#1a3300',
+                                    fontWeight: 700
+                                }}
                             >
-                                <option value="" className="bg-slate-900">Select Stream</option>
+                                <option value="">Select Stream</option>
                                 {streams.map((stream) => (
-                                    <option key={stream} value={stream} className="bg-slate-900">
+                                    <option key={stream} value={stream}>
                                         {stream.charAt(0).toUpperCase() + stream.slice(1)}
                                     </option>
                                 ))}
@@ -256,23 +338,31 @@ const MockTestConfigModal = ({ isOpen, onClose, onStart, preselectedSubject, use
                         </div>
                     )}
 
-                    {/* Subject (Auto-fetched based on class) */}
+                    {/* Subject */}
                     <div>
-                        <label className="block text-xs font-bold text-white/60 uppercase tracking-wider mb-2 flex items-center gap-2">
+                        <label className="block text-[11px] font-extrabold text-[#1a3300] uppercase tracking-wider mb-2 flex items-center gap-2 font-mono">
                             <BookOpen size={14} />
-                            Subject {loading && <span className="text-blue-400 animate-pulse">(Loading...)</span>}
+                            Subject {loading && <span className="text-[#cb5521] animate-pulse">(Loading...)</span>}
                         </label>
                         <select
                             value={config.subject}
                             onChange={(e) => setConfig({ ...config, subject: e.target.value })}
                             disabled={loading || subjects.length === 0}
-                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all disabled:opacity-50"
+                            className="w-full px-4 py-3 text-sm focus:outline-none transition-all disabled:opacity-50"
+                            style={{
+                                backgroundColor: '#ffffff',
+                                border: '2px solid #1a3300',
+                                borderRadius: '10px',
+                                boxShadow: '2px 2px 0px rgba(26,51,0,0.15)',
+                                color: '#1a3300',
+                                fontWeight: 700
+                            }}
                         >
                             {subjects.length === 0 ? (
-                                <option className="bg-slate-900">No subjects available</option>
+                                <option>No subjects available</option>
                             ) : (
                                 subjects.map((subject) => (
-                                    <option key={subject} value={subject} className="bg-slate-900">
+                                    <option key={subject} value={subject}>
                                         {subject}
                                     </option>
                                 ))
@@ -282,30 +372,46 @@ const MockTestConfigModal = ({ isOpen, onClose, onStart, preselectedSubject, use
 
                     {/* Language */}
                     <div>
-                        <label className="block text-xs font-bold text-white/60 uppercase tracking-wider mb-2 flex items-center gap-2">
+                        <label className="block text-[11px] font-extrabold text-[#1a3300] uppercase tracking-wider mb-2 flex items-center gap-2 font-mono">
                             <Globe size={14} />
                             Language
                         </label>
                         <select
                             value={config.language}
                             onChange={(e) => setConfig({ ...config, language: e.target.value })}
-                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                            className="w-full px-4 py-3 text-sm focus:outline-none transition-all"
+                            style={{
+                                backgroundColor: '#ffffff',
+                                border: '2px solid #1a3300',
+                                borderRadius: '10px',
+                                boxShadow: '2px 2px 0px rgba(26,51,0,0.15)',
+                                color: '#1a3300',
+                                fontWeight: 700
+                            }}
                         >
-                            <option value="english" className="bg-slate-900">English</option>
-                            <option value="bangla" className="bg-slate-900">Bangla</option>
+                            <option value="english">English</option>
+                            <option value="bangla">Bangla</option>
                         </select>
                     </div>
 
                     {/* Question Count */}
                     <div>
-                        <label className="block text-xs font-bold text-white/60 uppercase tracking-wider mb-2 flex items-center gap-2">
+                        <label className="block text-[11px] font-extrabold text-[#1a3300] uppercase tracking-wider mb-2 flex items-center gap-2 font-mono">
                             <Hash size={14} />
                             Question Count
                         </label>
                         <div className="grid grid-cols-3 gap-3">
                             {config.questionType === 'cq' ? (
                                 <button
-                                    className="px-4 py-3 bg-gradient-to-br from-blue-500 to-purple-600 text-white rounded-xl font-bold shadow-lg shadow-blue-900/30 transition-all col-span-3"
+                                    className="px-4 py-3 rounded-xl font-bold transition-all text-xs col-span-3"
+                                    style={{
+                                        backgroundColor: '#f6d0ff',
+                                        border: '2px solid #1a3300',
+                                        boxShadow: '3px 3px 0px #1a3300',
+                                        color: '#1a3300',
+                                        transform: 'translate(-2px, -2px)',
+                                        fontWeight: 800
+                                    }}
                                     disabled
                                 >
                                     5 Questions (Max for CQ)
@@ -315,10 +421,15 @@ const MockTestConfigModal = ({ isOpen, onClose, onStart, preselectedSubject, use
                                     <button
                                         key={count}
                                         onClick={() => setConfig({ ...config, questionCount: count })}
-                                        className={`px-4 py-3 rounded-xl font-bold transition-all ${config.questionCount === count
-                                            ? 'bg-gradient-to-br from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-900/30'
-                                            : 'bg-white/5 text-white/60 hover:bg-white/10'
-                                            }`}
+                                        className="px-4 py-3 rounded-xl font-bold transition-all text-xs"
+                                        style={{
+                                            backgroundColor: config.questionCount === count ? '#ffe95c' : '#ffffff',
+                                            border: '2px solid #1a3300',
+                                            boxShadow: config.questionCount === count ? '3px 3px 0px #1a3300' : '2px 2px 0px rgba(26,51,0,0.15)',
+                                            color: '#1a3300',
+                                            transform: config.questionCount === count ? 'translate(-2px, -2px)' : 'none',
+                                            cursor: 'pointer'
+                                        }}
                                     >
                                         {count}
                                     </button>
@@ -332,7 +443,16 @@ const MockTestConfigModal = ({ isOpen, onClose, onStart, preselectedSubject, use
                 <button
                     onClick={handleStart}
                     disabled={loading || !config.subject || (requiresStream && !config.stream)}
-                    className="w-full mt-6 px-6 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-black rounded-2xl shadow-xl shadow-blue-900/30 transition-all transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full mt-6 px-6 py-4 font-black rounded-2xl transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+                    style={{
+                        backgroundColor: '#cb5521',
+                        border: '2px solid #1a3300',
+                        boxShadow: '4px 4px 0px #1a3300',
+                        color: '#ffffff',
+                        cursor: 'pointer',
+                        fontSize: '0.9rem',
+                        letterSpacing: '0.05em'
+                    }}
                 >
                     {isDifficultyWarning ? '⚡ START CHALLENGE MODE' : isRemedial ? '📚 START REVIEW MODE' : 'START TEST'}
                 </button>
