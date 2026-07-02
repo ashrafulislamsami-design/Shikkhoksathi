@@ -34,14 +34,75 @@ const iepRoutes = require('./routes/iepRoutes');
 const app = express();
 
 // ==============================
-// 2. MIDDLEWARE
+// 2. RATE LIMITING (Redis with Memory Fallback)
+// ==============================
+const rateLimit = require('express-rate-limit');
+let rateLimitStore;
+
+if (process.env.REDIS_URL) {
+  try {
+    const { RedisStore } = require('rate-limit-redis');
+    const { createClient } = require('redis');
+    const redisClient = createClient({ url: process.env.REDIS_URL });
+    redisClient.connect().then(() => {
+      console.log('Redis rate-limiting store connected successfully.');
+    }).catch((err) => {
+      console.error('Redis client connection failed, falling back to local memory store:', err.message);
+    });
+    rateLimitStore = new RedisStore({
+      sendCommand: (...args) => redisClient.sendCommand(args),
+    });
+  } catch (err) {
+    console.error('Failed to initialize Redis client, falling back to memory store:', err.message);
+  }
+}
+
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  limit: 100, // Limit each IP to 100 requests per window
+  standardHeaders: 'draft-7',
+  legacyHeaders: false,
+  store: rateLimitStore,
+  message: {
+    message: 'Too many requests from this IP, please try again after 15 minutes.'
+  }
+});
+
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  limit: process.env.NODE_ENV === 'test' ? 100 : 5, // Limit authentication attempts to 5 per 15 minutes
+  standardHeaders: 'draft-7',
+  legacyHeaders: false,
+  store: rateLimitStore,
+  message: {
+    message: 'Too many authentication attempts, please try again after 15 minutes.'
+  }
+});
+
+// Apply general API rate limiter to all routes
+app.use('/api', apiLimiter);
+
+// ==============================
+// 3. MIDDLEWARE
 // ==============================
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
+// Handle malformed JSON body parse errors gracefully
+app.use((err, req, res, next) => {
+  if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+    return res.status(400).json({ message: 'Malformed JSON payload' });
+  }
+  next(err);
+});
+
+// Input validation and sanitization middleware (NoSQL/XSS/SSTI protection)
+const sanitize = require('./middleware/sanitize');
+app.use(sanitize);
+
 // ==============================
-// 3. DATABASE CONNECTION (With In-Memory Fallback)
+// 4. DATABASE CONNECTION (With In-Memory Fallback)
 // ==============================
 const connectDB = async () => {
   const uri = process.env.MONGODB_URI;
@@ -105,8 +166,15 @@ const connectDB = async () => {
 connectDB();
 
 // ==============================
-// 4. REGISTER API ROUTES
+// 5. REGISTER API ROUTES
 // ==============================
+
+// Apply aggressive rate limiter specifically on authentication routes
+app.use('/api/teachers/login', authLimiter);
+app.use('/api/teachers/register', authLimiter);
+app.use('/api/student/login', authLimiter);
+app.use('/api/student/register', authLimiter);
+app.use('/api/student/send-otp', authLimiter);
 
 // Lane 1: Teacher
 app.use('/api/teachers', teacherRoutes);
@@ -140,6 +208,6 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
-});
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+});

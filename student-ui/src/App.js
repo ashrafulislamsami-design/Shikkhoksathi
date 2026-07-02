@@ -12,7 +12,6 @@ import TestInterface from './components/TestInterface';
 import MockTestHub from './components/student/MockTestHub';
 import PeerTutoring from './components/PeerTutoring';
 import TeacherProfile from './components/TeacherProfile';
-import DemoOne from './components/ui/demo';
 
 // --- Teacher Side Layout ---
 const TeacherLayout = ({ onLogout, user, onUserUpdate }) => {
@@ -270,11 +269,7 @@ function App() {
           }
         />
 
-        {/* Demo Route for MovingBorder */}
-        <Route
-          path="/demo"
-          element={<DemoOne />}
-        />
+
 
         {/* Catch-all Redirect */}
         <Route
