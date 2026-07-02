@@ -33,6 +33,80 @@ const T = {
     fontMono: "'Roboto Mono', monospace",
 };
 
+const MockTestHubSkeleton = () => (
+    <div className="space-y-8 animate-pulse">
+        {/* Stats Grid Skeletons */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            {[1, 2, 3, 4].map(i => (
+                <div 
+                    key={i} 
+                    className="p-5 flex items-center justify-between"
+                    style={{
+                        backgroundColor: '#ffffff',
+                        border: '2px solid #1a3300',
+                        boxShadow: '4px 4px 0px rgba(26,51,0,0.12)',
+                        borderRadius: '12px',
+                        height: '78px'
+                    }}
+                >
+                    <div className="space-y-2">
+                        <div className="h-2 w-16 bg-[#1a3300]/10 rounded" />
+                        <div className="h-5 w-20 bg-[#1a3300]/20 rounded" />
+                    </div>
+                    <div className="w-8 h-8 rounded-lg bg-[#1a3300]/10" />
+                </div>
+            ))}
+        </div>
+
+        {/* Daily Challenge Card Skeleton */}
+        <div 
+            className="p-6 flex flex-col md:flex-row justify-between items-center gap-4"
+            style={{
+                backgroundColor: '#ffffff',
+                border: '2px solid #1a3300',
+                boxShadow: '4px 4px 0px #1a3300',
+                borderRadius: '16px',
+                height: '110px'
+            }}
+        >
+            <div className="space-y-2 flex-1">
+                <div className="h-4 w-48 bg-[#1a3300]/20 rounded" />
+                <div className="h-3 w-72 bg-[#1a3300]/10 rounded mt-2" />
+            </div>
+            <div className="w-32 h-10 bg-[#1a3300]/10 rounded-xl flex-shrink-0" />
+        </div>
+
+        {/* Grid Skeletons */}
+        <div className="space-y-4">
+            <div className="h-4 w-32 bg-[#1a3300]/20 rounded" />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                {[1, 2, 3, 4, 5].map(i => (
+                    <div 
+                        key={i} 
+                        className="p-5 flex flex-col justify-between"
+                        style={{
+                            backgroundColor: '#ffffff',
+                            border: '2px solid #1a3300',
+                            boxShadow: '4px 4px 0px #1a3300',
+                            borderRadius: '16px',
+                            height: '140px'
+                        }}
+                    >
+                        <div className="flex items-center justify-between">
+                            <div className="w-8 h-8 rounded-lg bg-[#1a3300]/10" />
+                            <div className="h-2 w-12 bg-[#1a3300]/10 rounded" />
+                        </div>
+                        <div className="space-y-2 mt-4">
+                            <div className="h-3 w-28 bg-[#1a3300]/20 rounded" />
+                            <div className="h-2.5 w-36 bg-[#1a3300]/10 rounded" />
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </div>
+);
+
 /* ─── REUSABLE CARD COMPONENT ─── */
 const Card = ({ children, style, className = '', hoverable = false, color, ...props }) => {
     const [hovered, setHovered] = useState(false);
@@ -197,19 +271,7 @@ const MockTestHub = ({ user }) => {
         }, 'challenge');
     };
 
-    if (loading) {
-        return (
-            <div 
-                className="flex flex-col items-center justify-center min-h-screen gap-4"
-                style={{ backgroundColor: T.cream }}
-            >
-                <Loader2 className="animate-spin" size={48} style={{ color: T.terracotta }} />
-                <p style={{ color: T.muted, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', fontSize: '0.7rem', fontFamily: T.fontMono }}>
-                    Synchronizing AI Node...
-                </p>
-            </div>
-        );
-    }
+
 
     return (
         <div className="flex h-screen overflow-hidden" style={{ fontFamily: T.fontBody, color: T.forest }}>
@@ -236,6 +298,10 @@ const MockTestHub = ({ user }) => {
                 }}
             >
                 <div className="p-8 max-w-7xl mx-auto">
+                    {loading ? (
+                        <MockTestHubSkeleton />
+                    ) : (
+                        <>
 
                     {/* Back to Dashboard Navigation */}
                     <button
@@ -720,6 +786,8 @@ const MockTestHub = ({ user }) => {
                         user={user}
                         preselectedSubject={null}
                     />
+                        </>
+                    )}
                 </div>
             </div>
         </div>

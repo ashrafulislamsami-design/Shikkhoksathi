@@ -156,6 +156,98 @@ const StudyStatRow = ({ icon: Icon, label, value, iconBg }) => (
 );
 
 
+const DashboardSkeleton = () => (
+    <div className="space-y-6 animate-pulse">
+        {/* ── Quick Stats Skeletons ── */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[1, 2, 3].map(i => (
+                <div 
+                    key={i} 
+                    className="p-4 flex items-center gap-3"
+                    style={{
+                        backgroundColor: '#ffffff',
+                        border: '2px solid #1a3300',
+                        boxShadow: '4px 4px 0px rgba(26,51,0,0.12)',
+                        borderRadius: '12px',
+                        height: '68px'
+                    }}
+                >
+                    <div className="w-9 h-9 rounded-lg bg-[#1a3300]/10 flex-shrink-0" />
+                    <div className="flex-1 space-y-2">
+                        <div className="h-2 w-16 bg-[#1a3300]/10 rounded" />
+                        <div className="h-4 w-24 bg-[#1a3300]/20 rounded" />
+                    </div>
+                </div>
+            ))}
+        </div>
+
+        {/* ── Radar + Study Stats Skeletons ── */}
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
+            {/* Radar Card Skeleton */}
+            <div 
+                className="p-6"
+                style={{
+                    backgroundColor: '#ffffff',
+                    border: '2px solid #1a3300',
+                    boxShadow: '4px 4px 0px #1a3300',
+                    borderRadius: '16px',
+                    height: '380px'
+                }}
+            >
+                <div className="flex items-center gap-3 mb-6">
+                    <div className="w-9 h-9 rounded-lg bg-[#1a3300]/10" />
+                    <div className="space-y-2">
+                        <div className="h-3 w-28 bg-[#1a3300]/20 rounded" />
+                        <div className="h-2 w-36 bg-[#1a3300]/10 rounded" />
+                    </div>
+                </div>
+                <div className="mx-auto w-48 h-48 rounded-full border-2 border-dashed border-[#1a3300]/20 flex items-center justify-center">
+                    <div className="w-24 h-24 rounded-full border-2 border-dashed border-[#1a3300]/20" />
+                </div>
+            </div>
+
+            {/* Study Time / Subject Skeletons */}
+            <div 
+                className="p-6"
+                style={{
+                    backgroundColor: '#ffffff',
+                    border: '2px solid #1a3300',
+                    boxShadow: '4px 4px 0px #1a3300',
+                    borderRadius: '16px',
+                    height: '380px'
+                }}
+            >
+                <div className="flex items-center gap-3 mb-6">
+                    <div className="w-9 h-9 rounded-lg bg-[#1a3300]/10" />
+                    <div className="space-y-2">
+                        <div className="h-3 w-28 bg-[#1a3300]/20 rounded" />
+                        <div className="h-2 w-36 bg-[#1a3300]/10 rounded" />
+                    </div>
+                </div>
+                <div className="space-y-3.5">
+                    {[1, 2, 3].map(i => (
+                        <div 
+                            key={i} 
+                            className="p-4 flex items-center justify-between"
+                            style={{
+                                border: '2px solid #1a3300',
+                                borderRadius: '12px',
+                                height: '62px'
+                            }}
+                        >
+                            <div className="flex items-center gap-3">
+                                <div className="w-6 h-6 rounded-md bg-[#1a3300]/10" />
+                                <div className="h-3 w-24 bg-[#1a3300]/20 rounded" />
+                            </div>
+                            <div className="h-4 w-12 bg-[#1a3300]/10 rounded" />
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    </div>
+);
+
 /* ═══════════════════════════════════════════
    MAIN STUDENT DASHBOARD COMPONENT
    ═══════════════════════════════════════════ */
@@ -342,18 +434,7 @@ const StudentDashboard = ({ user: propUser, onUserUpdate }) => {
         }
     }, [activeTab, careerData, loading, isGenerating, generationAttempted]);
 
-    /* ─── LOADING STATE ─── */
-    if (loading) {
-        return (
-            <div className="flex flex-col items-center justify-center min-h-screen gap-4"
-                style={{ backgroundColor: T.cream }}>
-                <Loader2 className="animate-spin" size={48} style={{ color: T.terracotta }} />
-                <p style={{ color: T.muted, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', fontSize: '0.7rem', fontFamily: T.fontMono }}>
-                    Synchronizing AI Node...
-                </p>
-            </div>
-        );
-    }
+
 
     /* ─── RADAR DATA ─── */
     const defaultSubjects = ['Mathematics', 'General Science', 'English', 'Bangla', 'ICT'];
@@ -419,7 +500,11 @@ const StudentDashboard = ({ user: propUser, onUserUpdate }) => {
                     </p>
                 </div>
 
-                {/* ═══ OVERVIEW TAB ═══ */}
+                {loading ? (
+                    <DashboardSkeleton />
+                ) : (
+                    <>
+                        {/* ═══ OVERVIEW TAB ═══ */}
                 {activeTab === 'overview' && (
                     <div className="space-y-6">
                         {/* ── Quick Stats ── */}
@@ -804,6 +889,8 @@ const StudentDashboard = ({ user: propUser, onUserUpdate }) => {
                             onUserUpdate?.(updatedUser);
                         }} />
                     </div>
+                )}
+                    </>
                 )}
             </div>
 
