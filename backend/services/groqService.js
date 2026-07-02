@@ -76,6 +76,12 @@ Return ONLY the JSON object. Example: { "questions": [...] }`;
     }
 
     console.error('[Groq] All models failed for generateQuestions.');
+    try {
+        const { sendWhatsAppAlert } = require('../utils/whatsappNotifier');
+        await sendWhatsAppAlert(`🚨 ShikkhokSathi Alert: Groq API failed to generate questions for ${subject} (topic: ${topic}, class: ${classLevel}). Either the API key has expired, rate limits are hit, or the service is down.`, 'groq_api_fail');
+    } catch (notifyErr) {
+        console.error('WhatsApp notify failed:', notifyErr);
+    }
     return [];
 };
 

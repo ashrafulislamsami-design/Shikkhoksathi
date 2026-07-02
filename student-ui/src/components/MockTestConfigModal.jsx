@@ -138,7 +138,7 @@ const MockTestConfigModal = ({ isOpen, onClose, onStart, preselectedSubject, use
                         cursor: 'pointer'
                     }}
                 >
-                    <X size={18} />
+                    <X size={18} style={{ color: '#1a3300' }} />
                 </button>
 
                 {/* Header */}
