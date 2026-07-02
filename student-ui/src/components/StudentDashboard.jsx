@@ -29,7 +29,6 @@ import {
 } from 'lucide-react';
 import MockTestConfigModal from './MockTestConfigModal';
 import SmartLoader from './ui/SmartLoader';
-import AlertModal from './ui/AlertModal';
 import Leaderboard from './Leaderboard';
 import StudentProfile from './StudentProfile';
 import ProfileAvatar from './ProfileAvatar';
@@ -179,7 +178,6 @@ const StudentDashboard = ({ user: propUser, onUserUpdate }) => {
     const [showNotifications, setShowNotifications] = useState(false);
     const [videoRecs, setVideoRecs] = useState([]);
     const [videoRecsLoading, setVideoRecsLoading] = useState(false);
-    const [alertMessage, setAlertMessage] = useState(null);
 
 
     const fetchData = useCallback(async () => {
@@ -269,7 +267,7 @@ const StudentDashboard = ({ user: propUser, onUserUpdate }) => {
         }
 
         setIsGenerating(false);
-        setAlertMessage('Assessment Engine is busy or the requested topic is currently unavailable. Please try a different subject.');
+        alert('Assessment Engine is busy or the requested topic is currently unavailable. Please try a different subject.');
     };
 
     const fetchVideoRecommendations = useCallback(async () => {
@@ -394,7 +392,6 @@ const StudentDashboard = ({ user: propUser, onUserUpdate }) => {
     return (
         <div className="flex h-screen overflow-hidden" style={{ fontFamily: T.fontBody, color: T.forest }}>
             {isGenerating && <SmartLoader isRetrying={retryCount > 0} retryCount={retryCount} />}
-            <AlertModal isOpen={!!alertMessage} onClose={() => setAlertMessage(null)} title="Assessment Engine" message={alertMessage} />
 
             {/* Sidebar */}
             <StudentSidebar user={user} activeTab={activeTab} setActiveTab={setActiveTab} />

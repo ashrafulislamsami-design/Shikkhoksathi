@@ -39,30 +39,44 @@ ${!isCQ ? `- options: array of 4 objects { text: string, isCorrect: boolean }` :
 
 Return ONLY the JSON object. Example: { "questions": [...] }`;
 
-    try {
-        const completion = await groq.chat.completions.create({
-            messages: [{ role: 'user', content: prompt }],
-            model: 'llama-3.1-8b-instant',
-            response_format: { type: 'json_object' }
-        });
+    const MODELS = ['llama-3.3-70b-versatile', 'llama-3.1-8b-instant', 'gemma2-9b-it'];
 
-        const content = completion.choices[0].message.content;
-        const data = JSON.parse(content);
-        let questions = data.questions || data;
+    for (const model of MODELS) {
+        try {
+            console.log(`[Groq] Trying model: ${model} for ${count} ${type} questions on ${subject}...`);
+            const completion = await groq.chat.completions.create({
+                messages: [{ role: 'user', content: prompt }],
+                model: model,
+                response_format: { type: 'json_object' },
+                temperature: 0.7,
+                max_tokens: 4096
+            });
 
-        // Ensure questions are returned as an array and have the 'type' field
-        if (!Array.isArray(questions)) questions = [questions];
+            const content = completion.choices[0].message.content;
+            const data = JSON.parse(content);
+            let questions = data.questions || data;
 
-        return questions.map(q => {
-            const sanitized = { ...q, type };
-            if (isCQ) delete sanitized.options; // Strictly remove options for CQ
-            return sanitized;
-        });
-    } catch (error) {
-        console.error('Groq generateQuestions error:', error);
-        if (error.response?.data) console.error('Groq Detail:', JSON.stringify(error.response.data));
-        return [];
+            // Ensure questions are returned as an array and have the 'type' field
+            if (!Array.isArray(questions)) questions = [questions];
+
+            console.log(`[Groq] Success with ${model}: Generated ${questions.length} questions.`);
+            return questions.map(q => {
+                const sanitized = { ...q, type };
+                if (isCQ) delete sanitized.options; // Strictly remove options for CQ
+                return sanitized;
+            });
+        } catch (error) {
+            console.error(`[Groq] Model ${model} failed:`, error.message || error);
+            if (error.status === 429) {
+                console.warn(`[Groq] Rate limited on ${model}. Waiting 2s before next model...`);
+                await new Promise(r => setTimeout(r, 2000));
+            }
+            // Try next model
+        }
     }
+
+    console.error('[Groq] All models failed for generateQuestions.');
+    return [];
 };
 
 /**

@@ -9,7 +9,6 @@ import {
 import MockTestConfigModal from '../MockTestConfigModal';
 import StudentSidebar from '../StudentSidebar';
 import SmartLoader from '../ui/SmartLoader';
-import AlertModal from '../ui/AlertModal';
 import ProfileAvatar from '../ProfileAvatar';
 import { MovingBorder } from '../ui/moving-border';
 
@@ -83,7 +82,6 @@ const MockTestHub = ({ user }) => {
     const [retryCount, setRetryCount] = useState(0);
     const [notifications, setNotifications] = useState([]);
     const [showNotifications, setShowNotifications] = useState(false);
-    const [alertMessage, setAlertMessage] = useState(null);
 
     // Fetch Real Data from Backend
     useEffect(() => {
@@ -183,7 +181,7 @@ const MockTestHub = ({ user }) => {
         }
 
         setIsGenerating(false);
-        setAlertMessage('Assessment Engine is busy or the requested topic is currently unavailable. Please try a different subject.');
+        alert('Assessment Engine is busy or the requested topic is currently unavailable. Please try a different subject.');
     };
 
     const startDailyChallenge = () => {
@@ -222,7 +220,6 @@ const MockTestHub = ({ user }) => {
                 }
             `}</style>
             {isGenerating && <SmartLoader isRetrying={retryCount > 0} retryCount={retryCount} context={loadingContext} />}
-            <AlertModal isOpen={!!alertMessage} onClose={() => setAlertMessage(null)} title="Assessment Engine" message={alertMessage} />
             {/* Sidebar */}
             <StudentSidebar user={user} />
 
