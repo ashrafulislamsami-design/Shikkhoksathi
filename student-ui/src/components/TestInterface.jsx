@@ -37,7 +37,6 @@ const TestInterface = ({ user }) => {
     const [selectedImage, setSelectedImage] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
     const [isAnalyzing, setIsAnalyzing] = useState(false); // New state
-    const [isSubmitHovered, setIsSubmitHovered] = useState(false);
 
     const fetchTestData = useCallback(async () => {
         try {
@@ -392,6 +391,18 @@ const TestInterface = ({ user }) => {
                 backgroundSize: '48px 48px'
             }}
         >
+            <style>{`
+                .submit-brutalist-btn {
+                    transition: all 0.2s ease-in-out !important;
+                }
+                .submit-brutalist-btn:not(:disabled):hover {
+                    background-color: ${T.yellow} !important;
+                    color: #000000 !important;
+                    border: 2px solid #000000 !important;
+                    box-shadow: 3px 3px 0px #000000 !important;
+                    transform: translate(-2px, -2px) !important;
+                }
+            `}</style>
             {/* Header */}
             <header 
                 className="fixed top-0 left-0 right-0 z-50 p-4 border-b-2"
@@ -708,22 +719,12 @@ const TestInterface = ({ user }) => {
                             <button
                                 onClick={handleSubmitAnswer}
                                 disabled={isAnalyzing || (question.type === 'mcq' ? !selectedOption : !previewUrl)}
-                                onMouseEnter={() => setIsSubmitHovered(true)}
-                                onMouseLeave={() => setIsSubmitHovered(false)}
-                                className="px-10 py-3.5 rounded-xl font-black text-xs uppercase tracking-wider transition-all duration-200 flex items-center gap-2 active:scale-[0.95] disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="submit-brutalist-btn px-10 py-3.5 rounded-xl font-black text-xs uppercase tracking-wider flex items-center gap-2 active:scale-[0.95] disabled:opacity-50 disabled:cursor-not-allowed"
                                 style={{
-                                    backgroundColor: (isAnalyzing || (question.type === 'mcq' ? !selectedOption : !previewUrl)) 
-                                        ? T.cream 
-                                        : (isSubmitHovered ? T.yellow : T.terracotta),
-                                    color: (isAnalyzing || (question.type === 'mcq' ? !selectedOption : !previewUrl)) 
-                                        ? T.muted 
-                                        : (isSubmitHovered ? '#000000' : T.white),
-                                    border: (isAnalyzing || (question.type === 'mcq' ? !selectedOption : !previewUrl))
-                                        ? '2px solid rgba(26,51,0,0.15)'
-                                        : (isSubmitHovered ? '2px solid #000000' : T.border),
-                                    boxShadow: (isAnalyzing || (question.type === 'mcq' ? !selectedOption : !previewUrl)) 
-                                        ? 'none' 
-                                        : (isSubmitHovered ? '3px 3px 0px #000000' : '3px 3px 0px #1a3300'),
+                                    backgroundColor: (isAnalyzing || (question.type === 'mcq' ? !selectedOption : !previewUrl)) ? T.cream : T.terracotta,
+                                    color: (isAnalyzing || (question.type === 'mcq' ? !selectedOption : !previewUrl)) ? T.muted : T.white,
+                                    border: (isAnalyzing || (question.type === 'mcq' ? !selectedOption : !previewUrl)) ? '2px solid rgba(26,51,0,0.15)' : T.border,
+                                    boxShadow: (isAnalyzing || (question.type === 'mcq' ? !selectedOption : !previewUrl)) ? 'none' : '3px 3px 0px #1a3300',
                                     cursor: 'pointer'
                                 }}
                             >
