@@ -382,7 +382,7 @@ const TestInterface = ({ user }) => {
 
     return (
         <div 
-            className="min-h-screen p-8 flex flex-col relative overflow-hidden"
+            className="min-h-screen p-4 md:p-8 flex flex-col relative overflow-hidden"
             style={{ 
                 backgroundColor: T.cream,
                 color: T.forest,
@@ -471,7 +471,7 @@ const TestInterface = ({ user }) => {
                     />
 
                     <div 
-                        className="p-10 relative overflow-hidden group"
+                        className="p-5 md:p-10 relative overflow-hidden group"
                         style={{
                             backgroundColor: T.white,
                             border: T.border,

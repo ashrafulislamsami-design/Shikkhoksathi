@@ -1710,3 +1710,104 @@ body.high-contrast button:hover {
   background-color: #ffffff !important;
   color: #000000 !important;
 }
+
+/* =============================================================================
+   MOBILE RESPONSIVENESS AND PORTABLE TWEAKS
+   ============================================================================= */
+
+@media (max-width: 1024px) {
+  /* Ensure grids in dashboards wrap correctly */
+  .grid-cols-2, .grid-cols-3, .grid-cols-4 {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Landing page header */
+  .landing-nav {
+    padding: 0.75rem 1.25rem !important;
+  }
+  .landing-nav-links {
+    display: none !important;
+  }
+  
+  /* Landing auth container */
+  .landing-auth-container {
+    grid-template-columns: 1fr !important;
+    gap: 2.5rem !important;
+    padding: 1rem !important;
+  }
+  
+  .landing-auth-card {
+    padding: 1.5rem !important;
+  }
+  
+  /* Landing statistics bar */
+  .landing-stats-divider {
+    display: none !important;
+  }
+  .landing-stats-inner {
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+  }
+  
+  /* Fix landing feature grid limits on narrow devices */
+  .landing-features-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+  }
+  
+  /* Collapsing inputs to single columns inside double-column fields */
+  .landing-auth-fields-2col {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Make sure modal overlays fit properly on mobile viewports */
+  div.bg-[#0f172a],
+  div.bg-slate-900,
+  div.bg-slate-800,
+  div.bg-[#101428],
+  div.bg-gray-900 {
+    width: 92% !important;
+    margin: 0 auto !important;
+    padding: 1.25rem !important;
+  }
+
+  /* Prevent horizontal layout spill from dashboard stats and roadmaps */
+  .space-y-6, .space-y-8 {
+    width: 100% !important;
+    overflow-x: hidden !important;
+  }
+
+  /* Force standard table responsiveness */
+  table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Make typography more readable on tiny screens */
+  h1 {
+    font-size: 1.8rem !important;
+  }
+  h2 {
+    font-size: 1.4rem !important;
+  }
+  
+  /* Landing hero main heading sizing adjustment */
+  .landing-hero-h1 {
+    font-size: 2.4rem !important;
+  }
+  
+  .landing-hero-desc {
+    font-size: 0.85rem !important;
+  }
+  
+  /* Make stats cards fit beautifully on mobile dashboard */
+  .grid {
+    gap: 0.75rem !important;
+  }
+}
+

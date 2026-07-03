@@ -288,16 +288,15 @@ const MockTestHub = ({ user }) => {
             {/* Sidebar */}
             <StudentSidebar user={user} />
 
-            {/* Main Content */}
             <div 
-                className="flex-1 overflow-y-auto relative no-scrollbar"
+                className="flex-1 overflow-y-auto relative no-scrollbar mt-14 md:mt-0"
                 style={{
                     backgroundColor: T.cream,
                     backgroundImage: 'linear-gradient(to right, rgba(26,51,0,0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(26,51,0,0.03) 1px, transparent 1px), radial-gradient(circle at 70% 20%, rgba(255,233,92,0.15) 0%, transparent 50%)',
                     backgroundSize: '48px 48px, 48px 48px, 100% 100%',
                 }}
             >
-                <div className="p-8 max-w-7xl mx-auto">
+                <div className="p-4 md:p-8 max-w-7xl mx-auto">
                     {loading ? (
                         <MockTestHubSkeleton />
                     ) : (

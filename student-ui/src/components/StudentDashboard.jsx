@@ -480,14 +480,12 @@ const StudentDashboard = ({ user: propUser, onUserUpdate }) => {
             {/* Sidebar */}
             <StudentSidebar user={user} activeTab={activeTab} setActiveTab={setActiveTab} />
 
-            {/* Main Content */}
             <div
-                className="flex-1 overflow-y-auto relative"
+                className="flex-1 overflow-y-auto relative p-5 md:p-10 mt-14 md:mt-0"
                 style={{
                     backgroundColor: T.cream,
                     backgroundImage: 'linear-gradient(to right, rgba(26,51,0,0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(26,51,0,0.03) 1px, transparent 1px), radial-gradient(circle at 70% 20%, rgba(255,233,92,0.15) 0%, transparent 50%)',
                     backgroundSize: '48px 48px, 48px 48px, 100% 100%',
-                    padding: '2rem 2.5rem',
                 }}
             >
                 {/* ─── PAGE HEADER ─── */}
