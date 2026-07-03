@@ -436,7 +436,7 @@ const LoginPage = ({ onLoginSuccess }) => {
     return (
         <div className="landing-root">
             {/* ===== SECTION 1: CINEMATIC HERO ===== */}
-            <section className="landing-hero-section">
+            <section className="landing-hero-section pb-32 md:pb-8">
                 <ParticleField />
                 <FloatingOrbs />
                 
@@ -488,11 +488,11 @@ const LoginPage = ({ onLoginSuccess }) => {
                         support — built for Bangladesh, powered by AI.
                     </p>
 
-                    <div className={`landing-hero-actions ${heroLoaded ? 'landing-hero-actions-visible' : ''}`}>
-                        <button onClick={scrollToLogin} className="landing-hero-btn-primary">
+                    <div className={`landing-hero-actions flex flex-col md:flex-row gap-4 w-full justify-center items-center ${heroLoaded ? 'landing-hero-actions-visible' : ''}`}>
+                        <button onClick={scrollToLogin} className="landing-hero-btn-primary w-full md:w-auto justify-center">
                             <Play size={16} /> Start Teaching
                         </button>
-                        <button onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })} className="landing-hero-btn-secondary">
+                        <button onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })} className="landing-hero-btn-secondary w-full md:w-auto justify-center">
                             Explore Features <ArrowDown size={14} />
                         </button>
                     </div>
@@ -598,7 +598,7 @@ const LoginPage = ({ onLoginSuccess }) => {
                     <div className="landing-auth-card">
                         <div className="landing-auth-card-accent" />
                         
-                        <div className="landing-auth-header">
+                        <div className="landing-auth-header flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
                             <h2 className="landing-auth-title">{isSignUp ? 'Create Account' : 'Welcome Back'}</h2>
                             <div className="landing-auth-toggle">
                                 <button
@@ -658,8 +658,7 @@ const LoginPage = ({ onLoginSuccess }) => {
                                     <input
                                         type="email" name="email" placeholder="Email Address"
                                         value={formData.email} onChange={handleInputChange} required
-                                        className="landing-input"
-                                        style={{ paddingRight: isSignUp ? '6.8rem' : '2.8rem' }}
+                                        className="landing-input pr-32"
                                     />
                                     {isSignUp && (
                                         <button
