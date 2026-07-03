@@ -436,7 +436,7 @@ const LoginPage = ({ onLoginSuccess }) => {
     return (
         <div className="landing-root">
             {/* ===== SECTION 1: CINEMATIC HERO ===== */}
-            <section className="landing-hero-section pt-28 pb-32 md:pt-36 md:pb-8">
+            <section className="landing-hero-section pb-40 md:pb-12">
                 <ParticleField />
                 <FloatingOrbs />
                 
@@ -466,7 +466,7 @@ const LoginPage = ({ onLoginSuccess }) => {
                 </nav>
 
                 {/* Hero Content */}
-                <div className="landing-hero-content">
+                <div className="landing-hero-content pt-28 md:pt-0">
                     <div className={`landing-hero-badge ${heroLoaded ? 'landing-hero-badge-visible' : ''}`}>
                         <Sparkles size={13} />
                         <span>Project Million X — Next-Gen Educational AI for Bangladesh</span>
