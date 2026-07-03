@@ -436,7 +436,7 @@ const LoginPage = ({ onLoginSuccess }) => {
     return (
         <div className="landing-root">
             {/* ===== SECTION 1: CINEMATIC HERO ===== */}
-            <section className="landing-hero-section pb-32 md:pb-8">
+            <section className="landing-hero-section pt-28 pb-32 md:pt-36 md:pb-8">
                 <ParticleField />
                 <FloatingOrbs />
                 
